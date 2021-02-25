@@ -29,7 +29,7 @@ def tableau(boxes: List[list], orientation='row') -> List[list]:
 
 @dataclass(frozen=True)
 class Tableau:
-    boxes: list = field(init=True, repr=True, compare=False)
+    boxes: List[list] = field(init=True, repr=True, compare=False)
     orientation: str = field(init=True, repr=True, compare=False)
 
     def shape(self) -> list:

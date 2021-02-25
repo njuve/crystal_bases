@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Union, List
+from typing import Union, List, Dict
 import tableau
 
 def jeu_de_taquin(tab: tableau.Tableau) -> tableau.Tableau:
@@ -24,7 +24,7 @@ def jeu_de_taquin(tab: tableau.Tableau) -> tableau.Tableau:
 
 
 class JeuDeTaquin:
-    def get_null_boxes(self, tab: tableau.Tableau):
+    def get_null_boxes(self, tab: tableau.Tableau) -> List[dict]:
         null_boxes = []
         boxes = tab.box()
         for row_num, row in enumerate(boxes):
@@ -34,7 +34,7 @@ class JeuDeTaquin:
 
         return null_boxes
 
-    def move(self, tab: tableau.Tableau, box_pos: dict, orientation='back'):
+    def move(self, tab: tableau.Tableau, box_pos: dict, orientation='back') -> tableau.Tableau or Dict[tableau.Tableau, dict]:
         if orientation == 'back':
             if (box_pos['row'] == 0) & (box_pos['col'] == 0):
                 return tab
@@ -44,7 +44,7 @@ class JeuDeTaquin:
         elif orientation == 'forword':
             pass
 
-    def backmove(self, tab: tableau.Tableau, box_pos: dict) -> dict:
+    def backmove(self, tab: tableau.Tableau, box_pos: dict) -> Dict[tableau.Tableau, dict]:
         boxes = tab.box()
         row_num = box_pos['row']
         col_num = box_pos['col']
@@ -67,7 +67,7 @@ class JeuDeTaquin:
     def forwordmove(self):
         pass
 
-    def jeu_de_taquin(self, tab: tableau.Tableau):
+    def jeu_de_taquin(self, tab: tableau.Tableau) -> tableau.Tableau:
         null_boxes = self.get_null_boxes(tab)
         for null_box in null_boxes:
             tab = self.move(tab, null_box)
