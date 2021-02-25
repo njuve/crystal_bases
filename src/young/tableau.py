@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Union, List
 
-def tableau(boxes: List[list], orientation='row') -> List[list]:
+def tableau(boxes: List[list], orientation='row') -> Tableau:
     """
     Generate Young tableau.
 
