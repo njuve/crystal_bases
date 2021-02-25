@@ -41,8 +41,7 @@ class JeuDeTaquin:
             else:
                 result = self.backmove(tab, box_pos)
                 return self.move(tab=result['tab'], box_pos=result['box_pos'])
-
-        elif: orientation == 'forword':
+        elif orientation == 'forword':
             pass
 
     def backmove(self, tab: tableau.Tableau, box_pos: dict) -> dict:
@@ -74,4 +73,3 @@ class JeuDeTaquin:
             tab = self.move(tab, null_box)
 
         return tab
-
