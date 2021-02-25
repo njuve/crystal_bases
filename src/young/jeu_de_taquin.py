@@ -13,8 +13,12 @@ def jeu_de_taquin(tab: tableau.Tableau) -> tableau.Tableau:
 
     Example
     >>> tab = tableau.Tableau(boxes=[[1, 1], [2, None]], orientation='row')
-    >>> jeu_de_taquin(tab)
-    tableau.Tableau(boxes=[[None, 1], [1, 2]], orientation='row')
+    >>> jeu_de_taquin(tab).box()
+    [[None, 1], [1, 2]]
+
+    >>> tab = tableau.Tableau(boxes=[[1, 2], [2, None]], orientation='row')
+    >>> jeu_de_taquin(tab).box()
+    [[None, 1], [2, 2]]
     """
     return JeuDeTaquin().jeu_de_taquin(tab)
 
@@ -30,9 +34,18 @@ class JeuDeTaquin:
 
         return null_boxes
 
-    def move(self, tab: tableau.Tableau, direction='back')
+    def move(self, tab: tableau.Tableau, box_pos: dict, orientation='back'):
+        if orientation == 'back':
+            if (box_pos['row'] == 0) & (box_pos['col'] == 0):
+                return tab
+            else:
+                result = self.backmove(tab, box_pos)
+                return self.move(tab=result['tab'], box_pos=result['box_pos'])
 
-    def backmove(self, tab: tableau.Tableau, box_pos: dict):
+        elif: orientation == 'forword':
+            pass
+
+    def backmove(self, tab: tableau.Tableau, box_pos: dict) -> dict:
         boxes = tab.box()
         row_num = box_pos['row']
         col_num = box_pos['col']
@@ -42,10 +55,15 @@ class JeuDeTaquin:
 
         if left > above:
             boxes[row_num][col_num], boxes[row_num][col_num-1] = left, box
+            box_pos = {'row': row_num, 'col': col_num-1}
         else:
             boxes[row_num][col_num], boxes[row_num-1][col_num] = above, box
+            box_pos = {'row': row_num-1, 'col': col_num}
 
-        return tableau.Tableau(boxes=boxes, orientation='row')
+        return {
+            'tab': tableau.Tableau(boxes=boxes, orientation='row'),
+            'box_pos': box_pos
+        }
 
     def forwordmove(self):
         pass
@@ -53,7 +71,7 @@ class JeuDeTaquin:
     def jeu_de_taquin(self, tab: tableau.Tableau):
         null_boxes = self.get_null_boxes(tab)
         for null_box in null_boxes:
-            tab = self.backmove(tab, null_box)
+            tab = self.move(tab, null_box)
 
         return tab
 
