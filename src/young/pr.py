@@ -20,3 +20,10 @@ def pr(tab: tableau.Tableau) -> tableau.Tableau:
 
     """
     return
+
+@dataclass(frozen=True)
+class Pr:
+    tab: list = field(init=True, repr=True, compare=False)
+
+    def pr(self) -> tableau.Tableau:
+        return
