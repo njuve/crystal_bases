@@ -32,10 +32,10 @@ class Tableau:
     boxes: list = field(init=True, repr=True, compare=False)
     orientation: str = field(init=True, repr=True, compare=False)
 
-    def shape(self):
+    def shape(self) -> list:
         return [len(row) for row in self.boxes]
 
-    def weight(self):
+    def weight(self) -> list:
         weight = []
         n = len(self.boxes) + 1 # the number of columns + 1
         for i in range(1, n+1):
@@ -48,5 +48,5 @@ class Tableau:
 
         return weight
 
-    def box(self):
+    def box(self) -> List[list]:
         return self.boxes
