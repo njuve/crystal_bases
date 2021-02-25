@@ -19,11 +19,21 @@ def pr(tab: tableau.Tableau) -> tableau.Tableau:
     [[1, 2], [2, 3]]
 
     """
-    return
+    return Pr().pr(tab)
 
 @dataclass(frozen=True)
 class Pr:
-    tab: list = field(init=True, repr=True, compare=False)
+    def remove_ns(self, tab:tableau.Tableau) -> tableau.Tableau:
+        return
 
-    def pr(self) -> tableau.Tableau:
+    def add_1s(self, tab:tableau.Tableau) -> tableau.Tableau:
+        return
+
+    def fill_nulls(self, tab:tableau.Tableau) -> tableau.Tableau:
+        return
+
+    def jue_de_taquin_move(self, tab:tableau.Tableau) -> tableau.Tableau:
+        return
+
+    def pr(self, tab: tableau.Tableau) -> tableau.Tableau:
         return
