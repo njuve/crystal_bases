@@ -21,10 +21,17 @@ def pr(tab: tableau.Tableau) -> tableau.Tableau:
     """
     return Pr().pr(tab)
 
+
 @dataclass(frozen=True)
 class Pr:
-    def remove_ns(self, tab:tableau.Tableau) -> tableau.Tableau:
-        return
+    def remove_ns(self, tab:tableau.Tableau, n) -> tableau.Tableau:
+        boxes = tab.box()
+        for row_num, row in enumerate(boxes):
+            for col_num, box in enumerate(row):
+                if box == n:
+                    boxes[row_num][col_num] = None
+
+        return tableau.Tableau(boxes=boxes, orientation='row')
 
     def add_1s(self, tab:tableau.Tableau) -> tableau.Tableau:
         return
