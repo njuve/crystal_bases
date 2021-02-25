@@ -36,7 +36,7 @@ class Pr:
     def add_1s(self, tab:tableau.Tableau) -> tableau.Tableau:
         return
 
-    def fill_nulls(self, tab:tableau.Tableau) -> tableau.Tableau:
+    def fill_nones(self, tab:tableau.Tableau) -> tableau.Tableau:
         return
 
     def jue_de_taquin_move(self, tab:tableau.Tableau) -> tableau.Tableau:
