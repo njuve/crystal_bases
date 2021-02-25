@@ -1,31 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Union, List
 
-def tableau(boxes: List[list], orientation='row') -> Tableau:
-    """
-    Generate Young tableau.
-
-    Args:
-        boxes: list
-        orientation: str, optional
-            Defaults to 'row'.
-
-    Returns:
-        list: [description]
-
-    Examples:
-    >>> tableau([[1, 2, 3], [2]]).box()
-    [[1, 2, 3], [2]]
-
-    >>> tableau([[1, 2, 3], [2]]).shape()
-    [3, 1]
-
-    >>> tableau([[1, 2, 3], [2]]).weight()
-    [1, 2, 1]
-
-    """
-    return Tableau(boxes = boxes, orientation = orientation)
-
 
 @dataclass(frozen=True)
 class Tableau:
@@ -50,3 +25,29 @@ class Tableau:
 
     def box(self) -> List[list]:
         return self.boxes
+
+
+def tableau(boxes: List[list], orientation='row') -> Tableau:
+    """
+    Generate Young tableau.
+
+    Args:
+        boxes: list
+        orientation: str, optional
+            Defaults to 'row'.
+
+    Returns:
+        list: [description]
+
+    Examples:
+    >>> tableau([[1, 2, 3], [2]]).box()
+    [[1, 2, 3], [2]]
+
+    >>> tableau([[1, 2, 3], [2]]).shape()
+    [3, 1]
+
+    >>> tableau([[1, 2, 3], [2]]).weight()
+    [1, 2, 1]
+
+    """
+    return Tableau(boxes = boxes, orientation = orientation)
