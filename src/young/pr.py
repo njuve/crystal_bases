@@ -53,13 +53,13 @@ class Pr:
 
         return tableau.Tableau(boxes=boxes, orientation='row')
 
-    def jue_de_taquin_move(self, tab:tableau.Tableau) -> tableau.Tableau:
+    def jeu_de_taquin_move(self, tab:tableau.Tableau) -> tableau.Tableau:
 
         return jeu_de_taquin(tab)
 
     def pr(self, tab: tableau.Tableau, n: int) -> tableau.Tableau:
         tab = self.remove_ns(tab=tab, n=n)
-        tab = self.jue_de_taquin_move(tab=tab)
+        tab = self.jeu_de_taquin_move(tab=tab)
         tab = self.add_1s(tab=tab)
         tab = self.fill_nones(tab=tab)
         return tab
