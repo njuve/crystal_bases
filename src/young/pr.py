@@ -54,6 +54,7 @@ class Pr:
         return tableau.Tableau(boxes=boxes, orientation='row')
 
     def jue_de_taquin_move(self, tab:tableau.Tableau) -> tableau.Tableau:
+
         return jeu_de_taquin(tab)
 
     def pr(self, tab: tableau.Tableau, n: int) -> tableau.Tableau:
