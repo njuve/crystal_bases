@@ -1,6 +1,5 @@
 from typing import Union, List, Dict
 import src.young.tableau as tableau
-from highest_weight_crystal import HighestWeightCrystal
 from typing import Any
 
 
