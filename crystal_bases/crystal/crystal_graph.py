@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Union, List
-import src.young.tableau as tableau
+import crystal_bases.young.tableau as tableau
 from crystal_structure import f, e, phi, epsilon
 import matplotlib.pyplot as plt
 import networkx as nx

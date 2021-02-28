@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Union, List, Set
-from young.tableau import tableau, Tableau
+from crystal_bases.young.tableau import tableau, Tableau
+
 
 @dataclass(frozen=True)
 class HighestWeightCrystal:

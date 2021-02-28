@@ -1,5 +1,5 @@
 from typing import Union, List, Dict
-import src.young.tableau as tableau
+import crystal_bases.young.tableau as tableau
 from typing import Any
 
 

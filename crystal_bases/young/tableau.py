@@ -12,8 +12,8 @@ class Tableau:
 
     def weight(self) -> list:
         weight = []
-        n = len(self.boxes) + 1 # the number of columns + 1
-        for i in range(1, n+1):
+        n = len(self.boxes) + 1  # the number of columns + 1
+        for i in range(1, n + 1):
             count_i = 0
             for row in self.boxes:
                 for box in row:
@@ -27,7 +27,7 @@ class Tableau:
         return self.boxes
 
 
-def tableau(boxes: List[list], orientation='row') -> Tableau:
+def tableau(boxes: List[list], orientation="row") -> Tableau:
     """
     Generate Young tableau.
 
@@ -50,4 +50,4 @@ def tableau(boxes: List[list], orientation='row') -> Tableau:
     [1, 2, 1]
 
     """
-    return Tableau(boxes = boxes, orientation = orientation)
+    return Tableau(boxes=boxes, orientation=orientation)
