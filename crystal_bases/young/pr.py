@@ -1,5 +1,3 @@
-from dataclasses import dataclass, field
-from typing import Union, List
 import crystal_bases.young.tableau as tableau
 from crystal_bases.young.jeu_de_taquin import jeu_de_taquin
 
@@ -39,7 +37,7 @@ class Pr:
         boxes = tab.box()
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
-                if box != None:
+                if box is not None:
                     boxes[row_num][col_num] = boxes[row_num][col_num] + 1
 
         return tableau.Tableau(boxes=boxes, orientation="row")
@@ -48,7 +46,7 @@ class Pr:
         boxes = tab.box()
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
-                if box == None:
+                if box is None:
                     boxes[row_num][col_num] = 1
 
         return tableau.Tableau(boxes=boxes, orientation="row")

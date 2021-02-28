@@ -125,10 +125,16 @@ class Wt:
 
 class F:
     def f(self, i: int, tab: tableau.Tableau) -> tableau.Tableau:
-        reading = SignatureRule().get_reading(tab=tab, reading="far_eastern")
-        signature = SignatureRule().get_signature(reading=reading, i=i)
-        result = SignatureRule().signature_rule(signature=signature, i=i)
-        act_point = result["act_point_f"]
+        reading: List[Dict[str, Union[int, None]]] = SignatureRule().get_reading(
+            tab=tab, reading="far_eastern"
+        )
+        signature: List[Dict[str, Union[int, None]]] = SignatureRule().get_signature(
+            reading=reading, i=i
+        )
+        result: Dict[
+            str, Union[Dict[str, Union[int, None]], int, None]
+        ] = SignatureRule().signature_rule(signature=signature, i=i)
+        act_point: Dict[str, Union[int, None]] = result["act_point_f"]
         if (act_point["row"] is None) & (act_point["col"] is None):
             return None
         else:
@@ -139,10 +145,16 @@ class F:
 
 class E:
     def e(self, i: int, tab: tableau.Tableau) -> tableau.Tableau:
-        reading = SignatureRule().get_reading(tab=tab, reading="far_eastern")
-        signature = SignatureRule().get_signature(reading=reading, i=i)
-        result = SignatureRule().signature_rule(signature=signature, i=i)
-        act_point = result["act_point_e"]
+        reading: List[Dict[str, Union[int, None]]] = SignatureRule().get_reading(
+            tab=tab, reading="far_eastern"
+        )
+        signature: List[Dict[str, Union[int, None]]] = SignatureRule().get_signature(
+            reading=reading, i=i
+        )
+        result: Dict[
+            str, Union[Dict[str, Union[int, None]], int, None]
+        ] = SignatureRule().signature_rule(signature=signature, i=i)
+        act_point: Dict[str, Union[int, None]] = result["act_point_e"]
         if (act_point["row"] is None) & (act_point["col"] is None):
             return None
         else:
