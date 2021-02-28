@@ -1,5 +1,4 @@
-from dataclasses import dataclass, field
-from typing import Union, List, Dict
+from typing import List, Dict, Any
 import crystal_bases.young.tableau as tableau
 
 
@@ -26,18 +25,16 @@ def jeu_de_taquin(tab: tableau.Tableau) -> tableau.Tableau:
 
 class JeuDeTaquin:
     def get_null_boxes(self, tab: tableau.Tableau) -> List[dict]:
-        null_boxes = []
-        boxes = tab.box()
+        null_boxes: List[Dict[str, int]] = []
+        boxes: List[list] = tab.box()
         for row_num, row in enumerate(boxes):
             for col_num, col in enumerate(row):
-                if col == None:
+                if col is None:
                     null_boxes = null_boxes + [{"row": row_num, "col": col_num}]
 
         return null_boxes
 
-    def move(
-        self, tab: tableau.Tableau, box_pos: dict, orientation="back"
-    ) -> tableau.Tableau or Dict[tableau.Tableau, dict]:
+    def move(self, tab: tableau.Tableau, box_pos: dict, orientation="back") -> Any:
         if orientation == "back":
             if (box_pos["row"] == 0) & (box_pos["col"] == 0):
                 return tab

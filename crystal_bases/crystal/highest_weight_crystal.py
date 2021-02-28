@@ -10,7 +10,7 @@ class HighestWeightCrystal:
     highest_weight: list = field(init=True, repr=True, compare=False)
 
     def get_weights(self) -> List[list]:
-        return
+        pass
 
     def realization(self) -> Set[Tableau]:
         return set()

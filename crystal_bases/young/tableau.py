@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Union, List
+from typing import List
 
 
 @dataclass(frozen=True)
@@ -7,11 +7,11 @@ class Tableau:
     boxes: List[list] = field(init=True, repr=True, compare=False)
     orientation: str = field(init=True, repr=True, compare=False)
 
-    def shape(self) -> list:
+    def shape(self) -> List[int]:
         return [len(row) for row in self.boxes]
 
-    def weight(self) -> list:
-        weight = []
+    def weight(self) -> List[int]:
+        weight: List[int] = []
         n = len(self.boxes) + 1  # the number of columns + 1
         for i in range(1, n + 1):
             count_i = 0
