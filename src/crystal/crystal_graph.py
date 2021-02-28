@@ -1,8 +1,7 @@
 from dataclasses import dataclass, field
-from typing import Union, List, Dict
+from typing import Union, List
 import src.young.tableau as tableau
-from typing import Any
-from crystal_structure import wt, f, e, phi, epsilon
+from crystal_structure import f, e, phi, epsilon
 import matplotlib.pyplot as plt
 import networkx as nx
 
@@ -17,7 +16,7 @@ class CrystalGraph:
         self.create_graph(tab=self.tab, n=self.n)
         self._set_node_position()
 
-    def _lower_graph(self, tab: tableau.Tableau, n: int):
+    def _lower_graph(self, tab: tableau.Tableau, n: int) -> None:
         self.G.add_node(tab)
         for i in range(1, n):
             if phi(i)(tab) > 0:
@@ -25,7 +24,7 @@ class CrystalGraph:
                 self.G.add_edge(tab, T, i=i)
                 self._lower_graph(T, n)
 
-    def _raiging_graph(self, tab: tableau.Tableau, n: int):
+    def _raiging_graph(self, tab: tableau.Tableau, n: int) -> None:
         self.G.add_node(tab)
         for i in range(1, n):
             if epsilon(i)(tab) > 0:
@@ -33,16 +32,16 @@ class CrystalGraph:
                 self.G.add_edge(T, tab, i=i)
                 self._raiging_graph(T, n)
 
-    def create_graph(self, tab: tableau.Tableau, n: int):
+    def create_graph(self, tab: tableau.Tableau, n: int) -> None:
         self._lower_graph(tab=tab, n=n)
         self._raiging_graph(tab=tab, n=n)
 
-    def _set_node_position(self):
+    def _set_node_position(self) -> None:
         pos = nx.spring_layout(self.G, k=0.3, seed=1)
         for node in self.G.nodes():
             self.G.nodes[node]["pos"] = pos[node]
 
-    def _get_subgraph_by_attribute(self, attribute, val):
+    def _get_subgraph_by_attribute(self, attribute, val) -> nx.Digraph:
         subgraph = self.G.edge_subgraph(
             [
                 (start, end)
@@ -52,7 +51,7 @@ class CrystalGraph:
         )
         return subgraph
 
-    def view(self):
+    def view(self) -> List[Union[plt.Figure, plt.axis]]:
         fig, ax = plt.subplots(figsize=(16, 9))
 
         edge_label_colors = ["#566978", "#FF5F5A", "#41C773", "#FFC87C", "#06C2B9"]
@@ -82,7 +81,7 @@ class CrystalGraph:
         )
 
         ax.set_title(
-            rf"graph",
+            rf"n = {self.n}, shape = {self.tab.shape()}, weight = {self.tab.weight()}",
             fontdict=dict(
                 size=25,
                 color="#566978",
@@ -90,7 +89,7 @@ class CrystalGraph:
             ),
         )
 
-        return fig, ax
+        return [fig, ax]
 
 
 def crystal_graph(tab: tableau.Tableau, n: int) -> CrystalGraph:
@@ -106,7 +105,8 @@ def crystal_graph(tab: tableau.Tableau, n: int) -> CrystalGraph:
         >>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
         >>> crystal_graph(tab = tab, n = 3)
         CrystalGraph(
-            G=<networkx.classes.digraph.DiGraph object at 0x1043efc10>, tab=Tableau(boxes=[[1, 1], [2, 2]], orientation='row'),
+            G=<networkx.classes.digraph.DiGraph object at 0x1043efc10>,
+            tab=Tableau(boxes=[[1, 1], [2, 2]], orientation='row'),
             n=3
         )
     """
