@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Union, List, Dict
-import tableau
+import crystal_bases.young.tableau as tableau
+
 
 def jeu_de_taquin(tab: tableau.Tableau) -> tableau.Tableau:
     """jeu de taquin
@@ -30,38 +31,42 @@ class JeuDeTaquin:
         for row_num, row in enumerate(boxes):
             for col_num, col in enumerate(row):
                 if col == None:
-                    null_boxes = null_boxes + [{'row': row_num, 'col': col_num}]
+                    null_boxes = null_boxes + [{"row": row_num, "col": col_num}]
 
         return null_boxes
 
-    def move(self, tab: tableau.Tableau, box_pos: dict, orientation='back') -> tableau.Tableau or Dict[tableau.Tableau, dict]:
-        if orientation == 'back':
-            if (box_pos['row'] == 0) & (box_pos['col'] == 0):
+    def move(
+        self, tab: tableau.Tableau, box_pos: dict, orientation="back"
+    ) -> tableau.Tableau or Dict[tableau.Tableau, dict]:
+        if orientation == "back":
+            if (box_pos["row"] == 0) & (box_pos["col"] == 0):
                 return tab
             else:
                 result = self.backmove(tab, box_pos)
-                return self.move(tab=result['tab'], box_pos=result['box_pos'])
-        elif orientation == 'forword':
+                return self.move(tab=result["tab"], box_pos=result["box_pos"])
+        elif orientation == "forword":
             pass
 
-    def backmove(self, tab: tableau.Tableau, box_pos: dict) -> Dict[tableau.Tableau, dict]:
+    def backmove(
+        self, tab: tableau.Tableau, box_pos: dict
+    ) -> Dict[tableau.Tableau, dict]:
         boxes = tab.box()
-        row_num = box_pos['row']
-        col_num = box_pos['col']
+        row_num = box_pos["row"]
+        col_num = box_pos["col"]
         box = boxes[row_num][col_num]
-        above = boxes[row_num-1][col_num] if row_num != 0 else 0
-        left = boxes[row_num][col_num-1] if col_num != 0 else 0
+        above = boxes[row_num - 1][col_num] if row_num != 0 else 0
+        left = boxes[row_num][col_num - 1] if col_num != 0 else 0
 
         if left > above:
-            boxes[row_num][col_num], boxes[row_num][col_num-1] = left, box
-            box_pos = {'row': row_num, 'col': col_num-1}
+            boxes[row_num][col_num], boxes[row_num][col_num - 1] = left, box
+            box_pos = {"row": row_num, "col": col_num - 1}
         else:
-            boxes[row_num][col_num], boxes[row_num-1][col_num] = above, box
-            box_pos = {'row': row_num-1, 'col': col_num}
+            boxes[row_num][col_num], boxes[row_num - 1][col_num] = above, box
+            box_pos = {"row": row_num - 1, "col": col_num}
 
         return {
-            'tab': tableau.Tableau(boxes=boxes, orientation='row'),
-            'box_pos': box_pos
+            "tab": tableau.Tableau(boxes=boxes, orientation="row"),
+            "box_pos": box_pos,
         }
 
     def forwordmove(self):

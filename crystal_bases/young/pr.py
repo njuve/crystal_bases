@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Union, List
-import tableau
-from jeu_de_taquin import jeu_de_taquin
+import crystal_bases.young.tableau as tableau
+from crystal_bases.young.jeu_de_taquin import jeu_de_taquin
 
 
 def pr(tab: tableau.Tableau, n: int) -> tableau.Tableau:
@@ -22,38 +22,38 @@ def pr(tab: tableau.Tableau, n: int) -> tableau.Tableau:
     >>> pr(tab = tab, n = 3).box()
     [[1, 2], [2, 3]]
     """
-    return Pr().pr(tab = tab, n = n)
+    return Pr().pr(tab=tab, n=n)
 
 
 class Pr:
-    def remove_ns(self, tab:tableau.Tableau, n: int) -> tableau.Tableau:
+    def remove_ns(self, tab: tableau.Tableau, n: int) -> tableau.Tableau:
         boxes = tab.box()
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
                 if box == n:
                     boxes[row_num][col_num] = None
 
-        return tableau.Tableau(boxes=boxes, orientation='row')
+        return tableau.Tableau(boxes=boxes, orientation="row")
 
-    def add_1s(self, tab:tableau.Tableau) -> tableau.Tableau:
+    def add_1s(self, tab: tableau.Tableau) -> tableau.Tableau:
         boxes = tab.box()
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
                 if box != None:
                     boxes[row_num][col_num] = boxes[row_num][col_num] + 1
 
-        return tableau.Tableau(boxes=boxes, orientation='row')
+        return tableau.Tableau(boxes=boxes, orientation="row")
 
-    def fill_nones(self, tab:tableau.Tableau) -> tableau.Tableau:
+    def fill_nones(self, tab: tableau.Tableau) -> tableau.Tableau:
         boxes = tab.box()
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
                 if box == None:
                     boxes[row_num][col_num] = 1
 
-        return tableau.Tableau(boxes=boxes, orientation='row')
+        return tableau.Tableau(boxes=boxes, orientation="row")
 
-    def jeu_de_taquin_move(self, tab:tableau.Tableau) -> tableau.Tableau:
+    def jeu_de_taquin_move(self, tab: tableau.Tableau) -> tableau.Tableau:
 
         return jeu_de_taquin(tab)
 
