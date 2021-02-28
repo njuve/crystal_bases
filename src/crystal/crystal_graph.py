@@ -12,6 +12,10 @@ class CrystalGraph:
     tab: tableau.Tableau = field(init=True, repr=True, compare=False)
     n: int = field(init=True, repr=True, compare=False)
 
+    def __eq__(self, other):
+        edge_match = nx.algorithms.isomorphism.numerical_edge_match("i", 1)
+        return nx.is_isomorphic(G1=self.G, G2=other.G, edge_match=edge_match)
+
     def __post_init__(self):
         self.create_graph(tab=self.tab, n=self.n)
         self._set_node_position()
@@ -41,7 +45,7 @@ class CrystalGraph:
         for node in self.G.nodes():
             self.G.nodes[node]["pos"] = pos[node]
 
-    def _get_subgraph_by_attribute(self, attribute, val) -> nx.Digraph:
+    def _get_subgraph_by_attribute(self, attribute, val) -> nx.DiGraph:
         subgraph = self.G.edge_subgraph(
             [
                 (start, end)
@@ -103,11 +107,7 @@ def crystal_graph(tab: tableau.Tableau, n: int) -> CrystalGraph:
 
     Examples:
         >>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
-        >>> crystal_graph(tab = tab, n = 3)
-        CrystalGraph(
-            G=<networkx.classes.digraph.DiGraph object at 0x1043efc10>,
-            tab=Tableau(boxes=[[1, 1], [2, 2]], orientation='row'),
-            n=3
-        )
+        >>> crystal_graph(tab = tab, n = 3) == crystal_graph(tab = tab, n = 3)
+        True
     """
     return CrystalGraph(tab=tab, n=n)
