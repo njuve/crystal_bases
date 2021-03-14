@@ -7,6 +7,9 @@ class Tableau:
     boxes: List[list] = field(init=True, repr=True, compare=False)
     orientation: str = field(init=True, repr=True, compare=False)
 
+    def __eq__(self, other):
+        return self.boxes == other.boxes
+
     def shape(self) -> List[int]:
         return [len(row) for row in self.boxes]
 
