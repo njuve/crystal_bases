@@ -52,5 +52,11 @@ def tableau(boxes: List[list], orientation="row") -> Tableau:
     >>> tableau([[1, 2, 3], [2]]).weight()
     [1, 2, 1]
 
+    >>> tableau([[1, 2, 3], [2]]) == tableau([[1, 2, 3], [2]])
+    True
+
+    >>> tableau([[1, 2, 3], [2]]) == tableau([[1, 3, 3], [2]])
+    False
+
     """
     return Tableau(boxes=boxes, orientation=orientation)
