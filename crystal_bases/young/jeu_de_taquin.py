@@ -19,6 +19,10 @@ def jeu_de_taquin(tab: tableau.Tableau) -> tableau.Tableau:
     >>> tab = tableau.Tableau(boxes=[[1, 2], [2, None]], orientation='row')
     >>> jeu_de_taquin(tab).box()
     [[None, 1], [2, 2]]
+
+    >>> tab = tableau.Tableau(boxes=[[1, 2], [None, None]], orientation='row')
+    >>> jeu_de_taquin(tab).box()
+    [[None, None], [1, 2]]
     """
     return JeuDeTaquin().jeu_de_taquin(tab)
 
