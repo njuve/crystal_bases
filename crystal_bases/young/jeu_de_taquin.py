@@ -55,13 +55,26 @@ class JeuDeTaquin:
         row_num = box_pos["row"]
         col_num = box_pos["col"]
         box = boxes[row_num][col_num]
-        above = boxes[row_num - 1][col_num] if row_num != 0 else 0
-        left = boxes[row_num][col_num - 1] if col_num != 0 else 0
+        above = (
+            boxes[row_num - 1][col_num] if row_num > 0 else 0
+        )  # if box out of tab above = 0
+        if above is None:
+            above = 0
 
-        if left > above:
+        left = (
+            boxes[row_num][col_num - 1] if col_num > 0 else 0
+        )  # if box out of tab above = 0
+        if left is None:
+            left = 0
+
+        if (left == 0) and (above == 0):
+            box_pos = {"row": 0, "col": 0}
+
+        elif left > above:
             boxes[row_num][col_num], boxes[row_num][col_num - 1] = left, box
             box_pos = {"row": row_num, "col": col_num - 1}
-        else:
+
+        elif left <= above:
             boxes[row_num][col_num], boxes[row_num - 1][col_num] = above, box
             box_pos = {"row": row_num - 1, "col": col_num}
 
