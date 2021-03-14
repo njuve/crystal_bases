@@ -1,6 +1,7 @@
 from typing import Union, List, Dict
 import crystal_bases.young.tableau as tableau
 from typing import Any
+import copy
 
 
 def wt(tab: tableau.Tableau) -> list:
@@ -138,9 +139,9 @@ class F:
         if (act_point["row"] is None) & (act_point["col"] is None):
             return None
         else:
-            boxes = tab.box()
+            boxes = copy.deepcopy(tab.box())
             boxes[act_point["row"]][act_point["col"]] = i + 1
-            return tableau.Tableau(boxes=boxes, orientation="row")
+            return tableau.tableau(boxes=boxes, orientation="row")
 
 
 class E:
@@ -158,7 +159,7 @@ class E:
         if (act_point["row"] is None) & (act_point["col"] is None):
             return None
         else:
-            boxes = tab.box()
+            boxes = copy.deepcopy(tab.box())
             boxes[act_point["row"]][act_point["col"]] = i
             return tableau.Tableau(boxes=boxes, orientation="row")
 
@@ -184,7 +185,7 @@ class SignatureRule:
         self, tab: tableau.Tableau, reading="far_eastern"
     ) -> List[Dict[str, Union[int, None]]]:
         reading = []
-        boxes = tab.box()
+        boxes = copy.deepcopy(tab.box())
         for row_num, row in enumerate(boxes):
             for col_num_re, box in enumerate(row[::-1]):
                 reading = reading + [
