@@ -23,6 +23,9 @@ def add_graph(crystal_graph: CrystalGraph, operator: Any) -> nx.DiGraph:
         >>> G = add_graph(crystal_graph = B, operator = pr(n=3))
         >>> B.G.nodes
         NodeView((Tableau(boxes=[[2, 2], [3, 3]], orientation='row'), Tableau(boxes=[[1, 2], [2, 3]], orientation='row'), Tableau(boxes=[[1, 2], [3, 3]], orientation='row'), Tableau(boxes=[[1, 1], [2, 3]], orientation='row'), Tableau(boxes=[[1, 1], [3, 3]], orientation='row'), Tableau(boxes=[[1, 1], [2, 2]], orientation='row')))
+
+        >>> B.G.edges
+
     """
     return AddGraph().add_graph(crystal_graph=crystal_graph, operator=operator)
 

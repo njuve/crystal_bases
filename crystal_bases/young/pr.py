@@ -1,6 +1,7 @@
 import crystal_bases.young.tableau as tableau
 from crystal_bases.young.jeu_de_taquin import jeu_de_taquin
 from typing import Any
+import copy
 
 
 def pr(n: int) -> Any:
@@ -32,7 +33,7 @@ def pr(n: int) -> Any:
 
 class Pr:
     def remove_ns(self, tab: tableau.Tableau, n: int) -> tableau.Tableau:
-        boxes = tab.box()
+        boxes = copy.deepcopy(tab.box())
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
                 if box == n:
@@ -41,7 +42,7 @@ class Pr:
         return tableau.Tableau(boxes=boxes, orientation="row")
 
     def add_1s(self, tab: tableau.Tableau) -> tableau.Tableau:
-        boxes = tab.box()
+        boxes = copy.deepcopy(tab.box())
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
                 if box is not None:
@@ -50,7 +51,7 @@ class Pr:
         return tableau.Tableau(boxes=boxes, orientation="row")
 
     def fill_nones(self, tab: tableau.Tableau) -> tableau.Tableau:
-        boxes = tab.box()
+        boxes = copy.deepcopy(tab.box())
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
                 if box is None:
