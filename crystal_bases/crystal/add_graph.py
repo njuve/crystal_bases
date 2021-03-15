@@ -21,10 +21,11 @@ def add_graph(crystal_graph: CrystalGraph, operator: Any) -> nx.DiGraph:
         >>> tab = tableau(boxes=[[1, 1], [2, 2]], orientation='row')
         >>> B = crystal_graph(tab = tab, n = 3)
         >>> G = add_graph(crystal_graph = B, operator = pr(n=3))
-        >>> B.G.nodes
-        NodeView((Tableau(boxes=[[2, 2], [3, 3]], orientation='row'), Tableau(boxes=[[1, 2], [2, 3]], orientation='row'), Tableau(boxes=[[1, 2], [3, 3]], orientation='row'), Tableau(boxes=[[1, 1], [2, 3]], orientation='row'), Tableau(boxes=[[1, 1], [3, 3]], orientation='row'), Tableau(boxes=[[1, 1], [2, 2]], orientation='row')))
+        >>> list(G.nodes)
+        [Tableau(boxes=[[1, 1], [2, 2]], orientation='row'), Tableau(boxes=[[1, 1], [2, 3]], orientation='row'), Tableau(boxes=[[1, 2], [2, 3]], orientation='row'), Tableau(boxes=[[1, 2], [3, 3]], orientation='row'), Tableau(boxes=[[2, 2], [3, 3]], orientation='row'), Tableau(boxes=[[1, 1], [3, 3]], orientation='row')]
 
-        >>> B.G.edges
+        >>> list(G.edges(data=True))
+        [(Tableau(boxes=[[1, 1], [2, 2]], orientation='row'), Tableau(boxes=[[1, 1], [2, 3]], orientation='row'), {'i': 2}), (Tableau(boxes=[[1, 1], [2, 2]], orientation='row'), Tableau(boxes=[[2, 2], [3, 3]], orientation='row'), {'op': '_pr'}), (Tableau(boxes=[[1, 1], [2, 3]], orientation='row'), Tableau(boxes=[[1, 2], [2, 3]], orientation='row'), {'i': 1, 'op': '_pr'}), (Tableau(boxes=[[1, 1], [2, 3]], orientation='row'), Tableau(boxes=[[1, 1], [3, 3]], orientation='row'), {'i': 2}), (Tableau(boxes=[[1, 2], [2, 3]], orientation='row'), Tableau(boxes=[[1, 2], [3, 3]], orientation='row'), {'i': 2, 'op': '_pr'}), (Tableau(boxes=[[1, 2], [3, 3]], orientation='row'), Tableau(boxes=[[2, 2], [3, 3]], orientation='row'), {'i': 1}), (Tableau(boxes=[[1, 2], [3, 3]], orientation='row'), Tableau(boxes=[[1, 1], [2, 3]], orientation='row'), {'op': '_pr'}), (Tableau(boxes=[[2, 2], [3, 3]], orientation='row'), Tableau(boxes=[[1, 1], [3, 3]], orientation='row'), {'op': '_pr'}), (Tableau(boxes=[[1, 1], [3, 3]], orientation='row'), Tableau(boxes=[[1, 2], [3, 3]], orientation='row'), {'i': 1}), (Tableau(boxes=[[1, 1], [3, 3]], orientation='row'), Tableau(boxes=[[1, 1], [2, 2]], orientation='row'), {'op': '_pr'})]
 
     """
     return AddGraph().add_graph(crystal_graph=crystal_graph, operator=operator)
@@ -33,7 +34,7 @@ def add_graph(crystal_graph: CrystalGraph, operator: Any) -> nx.DiGraph:
 class AddGraph:
     def add_edge(self, G: nx.DiGraph, operator: Any, tab: Tableau) -> nx.DiGraph:
         op_tab: Tableau = operator(tab)
-        G.add_edge(operator, op_tab, i="op1")
+        G.add_edge(tab, op_tab, op=operator.__name__)
         return G
 
     def add_graph(self, crystal_graph: CrystalGraph, operator: Any) -> nx.DiGraph:
