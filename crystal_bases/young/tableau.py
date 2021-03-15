@@ -7,6 +7,9 @@ class Tableau:
     boxes: List[list] = field(init=True, repr=True, compare=False)
     orientation: str = field(init=True, repr=True, compare=False)
 
+    def __eq__(self, other):
+        return self.boxes == other.boxes
+
     def shape(self) -> List[int]:
         return [len(row) for row in self.boxes]
 
@@ -48,6 +51,12 @@ def tableau(boxes: List[list], orientation="row") -> Tableau:
 
     >>> tableau([[1, 2, 3], [2]]).weight()
     [1, 2, 1]
+
+    >>> tableau([[1, 2, 3], [2]]) == tableau([[1, 2, 3], [2]])
+    True
+
+    >>> tableau([[1, 2, 3], [2]]) == tableau([[1, 3, 3], [2]])
+    False
 
     """
     return Tableau(boxes=boxes, orientation=orientation)

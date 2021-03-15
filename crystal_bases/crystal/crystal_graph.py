@@ -1,24 +1,21 @@
-from dataclasses import dataclass, field
 from typing import Union, List
 import crystal_bases.young.tableau as tableau
-from crystal_structure import f, e, phi, epsilon
+from crystal_bases.crystal.crystal_structure import f, e, phi, epsilon
 import matplotlib.pyplot as plt
 import networkx as nx
 
 
-@dataclass(frozen=True)
 class CrystalGraph:
-    G: nx.DiGraph = field(init=False, repr=True, compare=False, default=nx.DiGraph())
-    tab: tableau.Tableau = field(init=True, repr=True, compare=False)
-    n: int = field(init=True, repr=True, compare=False)
+    def __init__(self, tab: tableau.Tableau, n: int):
+        self.G = nx.DiGraph()
+        self.tab = tab
+        self.n = n
+        self.create_graph(tab=self.tab, n=self.n)
+        self._set_node_position()
 
     def __eq__(self, other):
         edge_match = nx.algorithms.isomorphism.numerical_edge_match("i", 1)
         return nx.is_isomorphic(G1=self.G, G2=other.G, edge_match=edge_match)
-
-    def __post_init__(self):
-        self.create_graph(tab=self.tab, n=self.n)
-        self._set_node_position()
 
     def _lower_graph(self, tab: tableau.Tableau, n: int) -> None:
         self.G.add_node(tab)
@@ -109,5 +106,10 @@ def crystal_graph(tab: tableau.Tableau, n: int) -> CrystalGraph:
         >>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
         >>> crystal_graph(tab = tab, n = 3) == crystal_graph(tab = tab, n = 3)
         True
+
+        >>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
+        >>> list(crystal_graph(tab = tab, n = 3).G.nodes)
+        [Tableau(boxes=[[1, 1], [2, 2]], orientation='row'), Tableau(boxes=[[1, 1], [2, 3]], orientation='row'), Tableau(boxes=[[1, 2], [2, 3]], orientation='row'), Tableau(boxes=[[1, 2], [3, 3]], orientation='row'), Tableau(boxes=[[2, 2], [3, 3]], orientation='row'), Tableau(boxes=[[1, 1], [3, 3]], orientation='row')]
+
     """
     return CrystalGraph(tab=tab, n=n)

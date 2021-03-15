@@ -1,8 +1,10 @@
 import crystal_bases.young.tableau as tableau
 from crystal_bases.young.jeu_de_taquin import jeu_de_taquin
+from typing import Any
+import copy
 
 
-def pr(tab: tableau.Tableau, n: int) -> tableau.Tableau:
+def pr(n: int) -> Any:
     """Schutzenberger's promotion operator
 
     Args:
@@ -12,20 +14,26 @@ def pr(tab: tableau.Tableau, n: int) -> tableau.Tableau:
         tableau.Tableau:
 
     Examples:
-    >>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
-    >>> pr(tab = tab, n = 3).box()
-    [[2, 2], [3, 3]]
+        >>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
+        >>> pr(n = 3)(tab).box()
+        [[2, 2], [3, 3]]
 
-    >>> tab = tableau.tableau(boxes=[[1, 1], [2, 3]], orientation='row')
-    >>> pr(tab = tab, n = 3).box()
-    [[1, 2], [2, 3]]
+        >>> tab = tableau.tableau(boxes=[[1, 1], [2, 3]], orientation='row')
+        >>> pr(n = 3)(tab).box()
+        [[1, 2], [2, 3]]
     """
-    return Pr().pr(tab=tab, n=n)
+
+    def _pr(
+        tab: tableau.Tableau,
+    ):
+        return Pr().pr(tab=tab, n=n)
+
+    return _pr
 
 
 class Pr:
     def remove_ns(self, tab: tableau.Tableau, n: int) -> tableau.Tableau:
-        boxes = tab.box()
+        boxes = copy.deepcopy(tab.box())
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
                 if box == n:
@@ -34,7 +42,7 @@ class Pr:
         return tableau.Tableau(boxes=boxes, orientation="row")
 
     def add_1s(self, tab: tableau.Tableau) -> tableau.Tableau:
-        boxes = tab.box()
+        boxes = copy.deepcopy(tab.box())
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
                 if box is not None:
@@ -43,7 +51,7 @@ class Pr:
         return tableau.Tableau(boxes=boxes, orientation="row")
 
     def fill_nones(self, tab: tableau.Tableau) -> tableau.Tableau:
-        boxes = tab.box()
+        boxes = copy.deepcopy(tab.box())
         for row_num, row in enumerate(boxes):
             for col_num, box in enumerate(row):
                 if box is None:
@@ -52,7 +60,6 @@ class Pr:
         return tableau.Tableau(boxes=boxes, orientation="row")
 
     def jeu_de_taquin_move(self, tab: tableau.Tableau) -> tableau.Tableau:
-
         return jeu_de_taquin(tab)
 
     def pr(self, tab: tableau.Tableau, n: int) -> tableau.Tableau:
