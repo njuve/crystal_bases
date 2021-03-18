@@ -5,7 +5,7 @@
 ### Young Tableau
 
 ```python
->>> from young.tableau import Tableau
+>>> from young.tableau import tableau
 >>> tab = tableau([[1, 2, 3], [2]], orientaton='row')
 >>> tab.box()
 [[1, 2, 3], [2]]
@@ -15,7 +15,9 @@
 
 ```python
 >>> from young.jeu_de_taquin import jeu_de_taquin
->>> tab = tableau.Tableau(boxes=[[1, 1], [2, None]], orientation='row')
+>>> from young.tableau import tableau
+
+>>> tab = tableau(boxes=[[1, 1], [2, None]], orientation='row')
 >>> jeu_de_taquin(tab).box()
 [[None, 1], [1, 2]]
 ```
@@ -24,7 +26,9 @@
 
 ```python
 >>> from young.pr import pr
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 3]], orientation='row')
+>>> from young.tableau import tableau
+
+>>> tab = tableau(boxes=[[1, 1], [2, 3]], orientation='row')
 >>> pr(n = 3)(tab).box()
 [[1, 2], [2, 3]]
 ```
@@ -35,7 +39,9 @@
 
 ```py
 >>> from crystal.crystal_structure import wt
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
+>>> from young.tableau import tableau
+
+>>> tab = tableau(boxes=[[1, 1], [2, 2]], orientation='row')
 >>> wt(tab)
  [2, 2, 0]
 ```
@@ -44,11 +50,12 @@
 
 ```py
 >>> from crystal.crystal_structure import f
+>>> from young.tableau import tableau
 
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
+>>> tab = tableau(boxes=[[1, 1], [2, 2]], orientation='row')
 >>> f(i=1)(tab) # return None
 
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
+>>> tab = tableau(boxes=[[1, 1], [2, 2]], orientation='row')
 >>> f(i=2)(tab).box()
 [[1, 1], [2, 3]]
 ```
@@ -57,11 +64,12 @@
 
 ```py
 >>> from crystal.crystal_structure import e
+>>> from young.tableau import tableau
 
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 3]], orientation='row')
+>>> tab = tableau(boxes=[[1, 1], [2, 3]], orientation='row')
 >>> e(i=1)(tab)
 
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 3]], orientation='row')
+>>> tab = tableau(boxes=[[1, 1], [2, 3]], orientation='row')
 >>> e(i=2)(tab).box()
  [[1, 1], [2, 2]]
 ```
@@ -70,12 +78,13 @@
 
 ```py
 >>> from crystal.crystal_structure import phi
+>>> from young.tableau import tableau
 
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
+>>> tab = tableau(boxes=[[1, 1], [2, 2]], orientation='row')
 >>> phi(i=1)(tab)
 0
 
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
+>>> tab = tableau(boxes=[[1, 1], [2, 2]], orientation='row')
 >>> phi(i=2)(tab)
 ```
 
@@ -83,12 +92,13 @@
 
 ```py
 >>> from crystal.crystal_structure import epsilon
+>>> from young.tableau import tableau
 
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 3]], orientation='row')
+>>> tab = tableau(boxes=[[1, 1], [2, 3]], orientation='row')
 >>> epsilon(i=1)(tab)
 0
 
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 3]], orientation='row')
+>>> tab = tableau(boxes=[[1, 1], [2, 3]], orientation='row')
 >>> epsilon(i=2)(tab)
 1
 ```
@@ -98,7 +108,7 @@
 ```python
 >>> from crystal.crystal_graph import crystal_graph
 >>> from young.tableau import tableau
->>> tab = tableau.tableau(boxes=[[1, 1], [2, 2]], orientation='row')
+>>> tab = tableau(boxes=[[1, 1], [2, 2]], orientation='row')
 >>> B = crystal_graph(tab = tab, n = 3)
 >>> list(B.G.nodes)
 [Tableau(boxes=[[1, 1], [2, 2]], orientation='row'), Tableau(boxes=[[1, 1], [2, 3]], orientation='row'), Tableau(boxes=[[1, 2], [2, 3]], orientation='row'), Tableau(boxes=[[1, 2], [3, 3]], orientation='row'), Tableau(boxes=[[2, 2], [3, 3]], orientation='row'), Tableau(boxes=[[1, 1], [3, 3]], orientation='row')]
